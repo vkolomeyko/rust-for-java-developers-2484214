@@ -14,7 +14,9 @@ struct Validator<T> {
 
 impl<T> Validator<T> {
     fn new() -> Self {
-        Validator { storage: Vec::new() }   
+        Validator {
+            storage: Vec::new(),
+        }
     }
 }
 
@@ -24,13 +26,13 @@ impl<T> DataPipeline<T> for Validator<T> {
     }
 
     fn insert_many(&mut self, items: impl Iterator<Item = T>) {
-        self.storage.extend(items);   
+        self.storage.extend(items);
     }
 
     fn num_valid(&self) -> u32 {
         self.storage.len() as u32
     }
-    
+
     fn filter(&mut self, predicate: fn(&T) -> bool) {
         self.storage.retain(predicate);
     }
