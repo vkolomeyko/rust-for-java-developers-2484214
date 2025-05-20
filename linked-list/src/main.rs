@@ -1,5 +1,20 @@
+type Link<T> = Option<Box<Node<T>>>;
+
+#[derive(Debug)]
+struct Node<T> {
+    value: T,
+    next: Link<T>,
+}
+
+impl<T> Node<T> {
+    fn get(&self) -> &T {
+        &self.value
+    }
+}
+
 #[derive(Debug)]
 pub struct LinkedList<T> {
+    head: Link<T>,
 }
 
 impl<T> LinkedList<T> {
@@ -8,11 +23,26 @@ impl<T> LinkedList<T> {
     }
 
     fn push(&mut self, item: T) {
-        todo!()
+        let new_node = Box::new(Node {
+            value: item,
+            next: None,
+        });
+
+        let mut current = &mut self.head;
+        while let Some(ref mut node) = *current {
+            current = &mut node.next;
+        }
+        *current = Some(new_node);
     }
 
     fn pop(&mut self) -> Option<T> {
-        todo!()
+        if self.head.is_none() {
+            return None;
+        }
+        
+        let unwrap = self.head.take().unwrap();
+        self.head = unwrap.next;
+        Some(unwrap.value)
     }
 
     // TODO: optional
