@@ -45,14 +45,21 @@ impl<T> LinkedList<T> {
         Some(unwrap.value)
     }
 
-    // TODO: optional
 
-    // fn greatest(&self) -> Option<&T>
-    // where
-    //     T: Ord,
-    // {
-    //  ..
-    // }
+    fn greatest(&self) -> Option<&T>
+    where
+        T: Ord,
+    {
+        let mut greatest: Option<&T> = None;
+        let mut current = &self.head;
+        while let Some(ref node) = *current {
+            if greatest.is_none() || node.get() > greatest.unwrap() {
+                greatest = Some(node.get());
+            }
+            current = &node.next;
+        }
+        greatest
+    }
 }
 
 fn main() {
@@ -68,5 +75,5 @@ fn main() {
         assert_eq!(node.get(), &2);
     }
 
-    // assert_eq!(list.greatest(), Some(&5));
+    assert_eq!(list.greatest(), Some(&5));
 }
