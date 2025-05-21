@@ -53,8 +53,9 @@ impl<T> LinkedList<T> {
         let mut greatest: Option<&T> = None;
         let mut current = &self.head;
         while let Some(ref node) = *current {
-            if greatest.is_none() || node.get() > greatest.unwrap() {
-                greatest = Some(node.get());
+            let curr_val = node.get();
+            if greatest.is_none() || curr_val > greatest.unwrap() {
+                greatest = Some(curr_val);
             }
             current = &node.next;
         }
