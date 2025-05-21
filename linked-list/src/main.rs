@@ -50,18 +50,14 @@ impl<T> LinkedList<T> {
     // {
     //     let mut current = &self.head;
     //     let mut greatest: Option<&T> = None;
-
+    //
     //     while let Some(ref node) = *current {
-    //         if let Some(ref mut max_val) = greatest {
-    //             if node.value > **max_val {
-    //                 *max_val = &node.value;
-    //             }
-    //         } else {
-    //                 greatest = Some(&node.value);
+    //         let curr_val = node.get();
+    //         if greatest.is_none() || curr_val > greatest.unwrap() {
+    //             greatest = Some(curr_val);
     //         }
     //         current = &node.next;
     //     }
-
     //     greatest
     // }
 }
