@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 static TEXT: &str = "
 hello, world!
 how are you?
@@ -15,9 +17,14 @@ fn tokenize(text: &str) -> impl Iterator<Item = &str> {
 }
 
 fn main() {
-    let word_counts = tokenize(TEXT)
-    // TODO: only use functional programming to generate `word_counts`
-    ;
+    let word_counts = tokenize(TEXT).fold(HashMap::new(), |mut map: HashMap<&str, u32>, word| {
+        let new_value = match map.get(word) {
+            Some(value) => value + 1,
+            None => 1
+        };
+        map.insert(word, new_value);
+        map
+    });
 
     for (word, count) in word_counts.iter() {
         println!("{}: {}", word, count);
